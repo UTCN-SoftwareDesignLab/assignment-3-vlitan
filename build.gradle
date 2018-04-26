@@ -26,6 +26,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
     compile 'org.hibernate:hibernate-core:5.2.10.Final'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'com.google.apis:google-api-services-books:v1-rev95-1.23.0'
     //compile 'org.slf4j:slf4j-simple:1.7.7'
     compile 'mysql:mysql-connector-java:5.1.31'
     compile 'commons-dbcp:commons-dbcp:1.4'

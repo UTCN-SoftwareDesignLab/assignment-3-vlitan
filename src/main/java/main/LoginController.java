@@ -1,4 +1,4 @@
-package main.presentation;
+package main;
 
 import com.google.common.collect.ImmutableMap;
 import main.model.Role;
@@ -26,7 +26,7 @@ public class LoginController {
     );
 //
 //    @Autowired
-//    AuthenticationService authenticationService;
+//    UserDetailsService authenticationService;
 //
 //    @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
 //    @Order(value = 1)

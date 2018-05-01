@@ -1,6 +1,6 @@
 package main.model;
 
-import org.springframework.lang.NonNull;
+//import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +14,7 @@ public class Consultation {
     private Integer id;
 
     @Column
-    @NonNull
+   // @NonNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 

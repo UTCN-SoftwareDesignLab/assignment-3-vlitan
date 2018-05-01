@@ -1,6 +1,6 @@
 package main.model;
 
-import org.springframework.lang.NonNull;
+//import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -16,16 +16,16 @@ public class Patient {
     private Integer id;
 
     @Column
-    @NonNull
+    //@NonNull
     private String name;
 
     @Column(unique = true)
-    @NonNull
+    //@NonNull
     @Pattern(regexp = "[A-Z]{2}[0-9]{4}", message = "Identity card number does not match the pattern")
     private String identityCardNumber;
 
     @Column(unique = true)
-    @NonNull
+    //@NonNull
     @Pattern(regexp = "[0-9]{10}", message = "Illegal characters or wrong length of personal numerical code")
     private String personalNumericalCode;
 
@@ -33,7 +33,7 @@ public class Patient {
     private String address;
 
     @Column
-    @NonNull
+    //@NonNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 

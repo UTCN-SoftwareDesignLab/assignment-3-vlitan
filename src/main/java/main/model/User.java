@@ -1,7 +1,7 @@
 package main.model;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.NonNull;
+//import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -18,18 +18,33 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     @Column
-    @NonNull
+   // @NonNull
     @Pattern(regexp = "[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+$", message = "Invalid username")
     private String username;
     @Column
-    @NonNull
+   // @NonNull
     @Length(min = 3, message = "Password is too short")
     private String password;
-//    @Column
-//    @NonNull
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @Column
+    //@NonNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Consultation> consultations = new ArrayList<>();
+
+    @Column
+    private boolean enabled;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public List<Consultation> getConsultations() {
         return consultations;
@@ -47,24 +62,17 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<UserRole> getUserRole() {
-        return userRole;
-    }
+//    public Set<UserRole> getUserRole() {
+//        return userRole;
+//    }
+//
+//    public void setUserRole(Set<UserRole> userRole) {
+//        this.userRole = userRole;
+//    }
 
-    public void setUserRole(Set<UserRole> userRole) {
-        this.userRole = userRole;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
-    private List<Consultation> consultations = new ArrayList<>();
-
-    @Column
-    private boolean enabled;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<UserRole> userRole = new HashSet<UserRole>(0);
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
     @Override
     public String toString() {
@@ -72,7 +80,8 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", consultations=" + consultations +
+                ", consultations=" + consultations + '\'' +
+                ", role=" + role +
                 '}';
     }
 
@@ -99,9 +108,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
 
 }

@@ -26,6 +26,17 @@ public class Consultation {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }

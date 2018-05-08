@@ -46,6 +46,9 @@ public class User {
         this.role = role;
     }
 
+    public User() {
+    }
+
     public List<Consultation> getConsultations() {
         return consultations;
     }

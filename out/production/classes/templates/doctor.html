@@ -16,6 +16,72 @@
     </style>
 </head>
 <body>
-Doctor
+<table>
+    <h1>
+        <span th:text="'Message:' + ${message}"></span>
+    </h1>
+    Consultations:<br/>
+    <tbody>
+    <th>
+    <td>ID</td>
+    <td>Date</td>
+    <td>Description</td>
+    </th>
+    <tr th:each="consultation : ${ consultationList }">
+        <td th:text="${ consultation.id }">Id</td>
+        <td th:text="${ consultation.date }">name</td>
+        <td th:text="${ consultation.description }">role</td>
+    </tr>
+    </tbody>
+</table>
+<!--th:object="${user}" modelAttribute="user"-->
+<form th:action="@{/doctor}"  method="post" class="form-horizontal col-sm-6 col-sm-offset-3">
+    <table>
+        <tr>
+            <td>Patient id:</td>
+            <td><input type="number" id="id"/></td>
+        </tr>
+        <tr>
+            <td>Consultation id:</td>
+            <td><input type="number" id="id"/></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" id="description" /></td>
+        </tr>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="listPatients">List patients</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="listConsultations">List consulations of selected patient</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="updateConsultation">Update Consultation</button>
+            </div>
+        </div>
+
+    </table>
+</form>
+Patients:<br/>
+<tbody>
+<th>
+<td>ID</td>
+<td>Date</td>
+<td>Description</td>
+</th>
+<tr th:each="patient : ${ patientsList }">
+    <td th:text="${ patient.id }">Id</td>
+    <td th:text="${ patient.name }">name</td>
+</tr>
+</tbody>
 </body>
 </html>

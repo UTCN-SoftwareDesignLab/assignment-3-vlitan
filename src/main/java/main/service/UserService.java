@@ -12,4 +12,5 @@ public interface UserService {
     List<User> findAll();
     Notification<Boolean> save(User user);
     Notification<Boolean> delete(User user);
+    Notification<Boolean> deleteById(Integer id);
 }

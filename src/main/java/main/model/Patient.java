@@ -2,6 +2,8 @@ package main.model;
 
 //import org.springframework.lang.NonNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -35,6 +37,7 @@ public class Patient {
     @Column
     //@NonNull
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @OneToMany(cascade = CascadeType.ALL,

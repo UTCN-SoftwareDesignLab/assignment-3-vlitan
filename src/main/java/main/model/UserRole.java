@@ -30,11 +30,11 @@
 //        this.userRoleId = userRoleId;
 //    }
 //
-//    public User getUser() {
+//    public User getDoctor() {
 //        return user;
 //    }
 //
-//    public void setUser(User user) {
+//    public void setDoctor(User user) {
 //        this.user = user;
 //    }
 //

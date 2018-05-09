@@ -32,7 +32,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            mappedBy = "user")
+            mappedBy = "doctor")
     private List<Consultation> consultations = new ArrayList<>();
 
     @Column

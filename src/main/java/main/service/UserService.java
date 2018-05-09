@@ -13,4 +13,5 @@ public interface UserService {
     Notification<Boolean> save(User user);
     Notification<Boolean> delete(User user);
     Notification<Boolean> deleteById(Integer id);
+    List<User> getDoctorsSortedByAvailability();
 }

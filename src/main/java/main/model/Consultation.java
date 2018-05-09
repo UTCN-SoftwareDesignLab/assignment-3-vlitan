@@ -2,6 +2,8 @@ package main.model;
 
 //import org.springframework.lang.NonNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ public class Consultation {
 
     @Column
    // @NonNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
@@ -24,7 +27,7 @@ public class Consultation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User doctor;
 
     @Column
     private String description;
@@ -61,11 +64,11 @@ public class Consultation {
         this.patient = patient;
     }
 
-    public User getUser() {
-        return user;
+    public User getDoctor() {
+        return doctor;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDoctor(User doctor) {
+        this.doctor = doctor;
     }
 }

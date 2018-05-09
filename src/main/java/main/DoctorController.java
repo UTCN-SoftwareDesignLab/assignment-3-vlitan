@@ -1,5 +1,6 @@
 package main;
 
+import main.model.Consultation;
 import main.model.User;
 import main.service.ConsultationService;
 import main.service.PatientService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class DoctorController {
@@ -36,8 +39,19 @@ public class DoctorController {
     }
 
     @RequestMapping(value = "/doctor", method = RequestMethod.POST, params = "action=listConsultations")
-    public String listConsultationsOfPatient(@RequestParam("id") Integer patientId, Model model) {
+    public String listConsultationsOfPatient(@RequestParam("pid") Integer patientId, Model model) {
         model.addAttribute("consultationList", consultationService.findConsultationsByPatientId(patientId));
+        return "doctor";
+    }
+
+    @RequestMapping(value = "/doctor", method = RequestMethod.POST, params = "action=updateConsultation")
+    public String updateConsultation(@RequestParam("cid") Integer consultationId, @RequestParam("description") String description, Model model) {
+        Optional<Consultation> optionalConsultation = consultationService.findById(consultationId);
+        if (optionalConsultation.isPresent()){
+            Consultation consultation = optionalConsultation.get();
+            consultation.setDescription(description);
+            consultationService.save(consultation);
+        }
         return "doctor";
     }
 }

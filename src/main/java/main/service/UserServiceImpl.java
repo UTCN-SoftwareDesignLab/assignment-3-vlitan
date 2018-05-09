@@ -6,8 +6,12 @@ import main.util.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static main.model.Role.DOCTOR;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -64,5 +68,10 @@ public class UserServiceImpl implements UserService {
             deleteNotification.addError("Id cannot be negative");
         }
         return deleteNotification;
+    }
+
+    @Override
+    public List<User> getDoctorsSortedByAvailability() {
+        return userRepository.findByRole(DOCTOR).stream().sorted(Comparator.comparing(d -> d.getConsultations().size())).collect(Collectors.toList());
     }
 }

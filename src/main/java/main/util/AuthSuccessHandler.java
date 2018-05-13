@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -21,6 +22,10 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     @Override
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response){
         System.out.println("[AuthSuccessHandler] determine target for " + SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString());
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+          //  session.setAttribute("user", user);
+        }
         return ROLE_TO_VIEW_MAP.get(Role.valueOf(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().replaceAll("[\\[\\]]", "")));
     }
 }

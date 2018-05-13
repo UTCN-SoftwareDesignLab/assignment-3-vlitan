@@ -7,7 +7,12 @@
     <title>Doctor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/doctor.js"></script>
 
     <style>
         form {
@@ -15,11 +20,12 @@
         }
     </style>
 </head>
-<body>
+<body onload="connect()">
 <table>
     <h1>
         <span th:text="'Message:' + ${message}"></span>
     </h1>
+
     <tbody>
     <th>
     <td>ID</td>

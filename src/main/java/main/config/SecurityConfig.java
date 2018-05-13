@@ -13,22 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
-import static main.model.Role.ADMIN;
 
-/**
- * Created by Catalysts on 10/9/2015.
- */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.debug(true);
-//    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     antMatchers("/login/**").permitAll().
                     antMatchers("/favicon.ico").permitAll().
                     antMatchers("/admin/**").access("hasAuthority('ADMIN')").
-                    antMatchers("/secretary/**").access("hasAuthority('SECRETARY')").   antMatchers("/secretary/**").access("hasAuthority('SECRETARY')").
+                    antMatchers("/secretary/**").access("hasAuthority('SECRETARY')").
                     antMatchers("/secretaryConsultations/**").access("hasAuthority('SECRETARY')").
                     antMatchers("/secretaryPatients/**").access("hasAuthority('SECRETARY')").
                     antMatchers("/doctor/**").access("hasAuthority('DOCTOR')").
@@ -59,20 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     failureUrl("/login?error")
                 ;
 
-
-//        http
-//                .csrf()
-//                .disable()
-//                .authorizeRequests()
-//                .antMatchers("/js/**").permitAll()
-//                .anyRequest().access("hasRole('ADMIN')")
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
     }
 
     @Bean

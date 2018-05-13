@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class ConsultationServiceImpl implements ConsultationService {
+
     @Autowired
     private ConsultationRepository consultationRepository;
     @Autowired

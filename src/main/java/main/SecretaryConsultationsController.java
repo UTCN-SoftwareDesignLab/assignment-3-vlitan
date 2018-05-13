@@ -49,28 +49,29 @@ public class SecretaryConsultationsController {
         return "secretaryConsultations";
     }
 
-    @RequestMapping(value = "/consultation", method = RequestMethod.POST, params = "action=notifyDoctor")
-    public String notifyDoctor(@RequestParam("did") Integer id, Model model)
-    {
-        Optional<User> userOptional = userService.findById(id);
-        if (userOptional.isPresent()){
-            if (userOptional.get().getRole().equals(Role.DOCTOR)){
-                System.out.println("notify  " + userService.findById(id).get().getId());
-            }
-            else{
-                model.addAttribute("message", "no such doctor");
-            }
-        }
-        else {
-            model.addAttribute("message", "no such user");
-        }
-        model.addAttribute("consultation", new Consultation());
-        return "secretaryConsultations";
-    }
+//    @RequestMapping(value = "/consultation", method = RequestMethod.POST, params = "action=notifyDoctor")
+//    public String notifyDoctor(@RequestParam("did") Integer id, Model model)
+//    {
+//        Optional<User> userOptional = userService.findById(id);
+//        if (userOptional.isPresent()){
+//            if (userOptional.get().getRole().equals(Role.DOCTOR)){
+//                System.out.println("notify  " + userService.findById(id).get().getId());
+//            }
+//            else{
+//                model.addAttribute("message", "no such doctor");
+//            }
+//        }
+//        else {
+//            model.addAttribute("message", "no such user");
+//        }
+//        model.addAttribute("consultation", new Consultation());
+//        return "secretaryConsultations";
+//    }
 
     @RequestMapping(value = "/consultation", method = RequestMethod.POST, params = "action=findAll")
     public String findAll(Model model)
     {
+        System.out.println("[SecretaryConsultationsController] findAll pressed");
         updateConsultationsList(model);
         return "secretaryConsultations";
     }

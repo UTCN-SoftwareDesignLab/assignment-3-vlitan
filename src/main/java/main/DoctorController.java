@@ -1,17 +1,19 @@
 package main;
 
 import main.model.Consultation;
+import main.model.DTO.DoctorNotification;
+import main.model.DTO.DoctorNotificationResponse;
+import main.model.Role;
 import main.model.User;
+import main.repository.UserRepository;
 import main.service.ConsultationService;
 import main.service.PatientService;
-import main.util.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +27,18 @@ public class DoctorController {
     private PatientService patientService;
     @Autowired
     private ConsultationService consultationService;
+    @Autowired
+    private UserRepository userService;
+
+    private Model model;
+
+
 
     @RequestMapping(value = "/doctor", method = RequestMethod.GET)
     @Order(value = 1)
-    public String index() {
+    public String index(Model model) {
+        this.model = model;
+        this.model.addAttribute("message", "merge");
         return "doctor";
     }
 
@@ -53,5 +63,29 @@ public class DoctorController {
             consultationService.save(consultation);
         }
         return "doctor";
+    }
+
+    @MessageMapping("/notifyDoctor")
+    @SendTo("/topic/errors")
+    //@SendTo("/topic/notification")
+    public DoctorNotificationResponse gotNotified(DoctorNotification message){
+        System.out.println("[DoctorController] got notified: " + message.getUserId());
+        Integer id = new Integer(message.getUserId());
+        Optional<User> userOptional = userService.findById(id);
+        DoctorNotificationResponse doctorNotificationError = new DoctorNotificationResponse();
+        if (userOptional.isPresent()){
+            if (userOptional.get().getRole().equals(Role.DOCTOR)){
+                doctorNotificationError.setResponse("Doctor " + userOptional.get().getUsername() + " please welcome your patient");
+                //result.setResult("Doctor " + userOptional.get().getUsername() + " please welcome your patient");
+                System.out.println("notify  " + userService.findById(id).get().getId());
+            }
+            else{
+                doctorNotificationError.addError("no such doctor");
+            }
+        }
+        else {
+            doctorNotificationError.addError("no such user");
+        }
+        return doctorNotificationError;
     }
 }
